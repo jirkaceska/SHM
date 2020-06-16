@@ -27,12 +27,23 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'shm-4180.rostiapp.cz',
+    'localhost'
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'calculator',
+    'moviebook',
+    'polls.apps.PollsConfig',
+    'accounts.apps.AccountsConfig',
+    'tasks.apps.TaskConfig',
+    'bootstrap4',
+    'crispy_forms',
+    'stdimage',
+    'user.apps.UserConfig',
+    'register.apps.RegisterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,6 +63,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'shm.urls'
+LOGIN_REDIRECT_URL = 'tasks:index'
 
 TEMPLATES = [
     {
@@ -76,9 +88,18 @@ WSGI_APPLICATION = 'shm.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': '/etc/mysql/my.cnf',
+            # 'init-command': 'SET storage_engine=INNODB,character_set_connection=utf8,'
+            #                'collation_connection=utf8_czech_ci',
+            'charset': 'utf8'
+        },
     }
 }
 
@@ -105,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'cs-CZ'
 
 TIME_ZONE = 'UTC'
 
@@ -120,3 +141,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'bootstrap')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK="bootstrap4"

@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Tábory</h2>
+    <form method="post" action="{% url 'tasks:index' %}">
+        {% csrf_token %}
+        {% crispy form %}
+        <button type="submit" class="btn btn-primary">Filtrovat</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li class="camp card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-2 p-2">
+                        <img src="{{ task.image.url }}" alt="Obrázek tábora" width="100%">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body">
+                            <div class="card-title">{{ task.name }}</div>
+                            <div>Věk: {{ task.age_min }}-{{ task.age_max }}</div>
+                            <div>Termín: {{ task.get_date_span|default_if_none:"" }}</div>
+                            {% include 'tasks/assigned_to.html' %}
+                            <div>Počet míst: {{ task.capacity }}</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'tasks:detail' task.id %}" class="stretched-link"></a>
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}

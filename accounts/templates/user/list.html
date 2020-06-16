@@ -1,0 +1,19 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+    {% for profile in profiles %}
+        <h2>{{ profile.get_full_name }}</h2>
+        <div>
+            {{ profile.owner.email }}
+        </div>
+        <div>
+            {{ profile.phone }}
+        </div>
+        <div>
+            <img src="{{ profile.avatar.url }}" alt="avatar" />
+        </div>
+        <div>
+            {{ profile.quote }}
+        </div>
+    {% endfor %}
+{% endblock %}
