@@ -34,16 +34,16 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'calculator',
-    'moviebook',
-    'polls.apps.PollsConfig',
+    # 'calculator',
+    # 'moviebook',
+    # 'polls.apps.PollsConfig',
     'accounts.apps.AccountsConfig',
     'tasks.apps.TaskConfig',
     'bootstrap4',
     'crispy_forms',
     'stdimage',
-    'user.apps.UserConfig',
-    'register.apps.RegisterConfig',
+    # 'user.apps.UserConfig',
+    # 'register.apps.RegisterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,19 +88,19 @@ WSGI_APPLICATION = 'shm.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # },
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
-            # 'init-command': 'SET storage_engine=INNODB,character_set_connection=utf8,'
-            #                'collation_connection=utf8_czech_ci',
-            'charset': 'utf8'
-        },
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'OPTIONS': {
+    #         'read_default_file': '/etc/mysql/my.cnf',
+    #         # 'init-command': 'SET storage_engine=INNODB,character_set_connection=utf8,'
+    #         #                'collation_connection=utf8_czech_ci',
+    #         'charset': 'utf8'
+    #     },
+    # }
 }
 
 
@@ -150,4 +150,4 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
-CRISPY_TEMPLATE_PACK="bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"

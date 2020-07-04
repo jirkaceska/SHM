@@ -9,21 +9,25 @@ class InsuranceCompany(models.Model):
     insurance_code = models.IntegerField()
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Profile(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    phone = models.CharField(max_length=255)
-    birth_date = models.DateField()
-    insurance_company = models.ForeignKey(InsuranceCompany, on_delete=models.PROTECT)
-    street = models.CharField(max_length=255)
-    house_number = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    zip_code = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255, verbose_name="Křestní jméno")
+    last_name = models.CharField(max_length=255, verbose_name="Příjmení")
+    phone = models.CharField(max_length=255, verbose_name="Telefon")
+    birth_date = models.DateField(verbose_name="Datum narození")
+    insurance_company = models.ForeignKey(InsuranceCompany, on_delete=models.PROTECT, verbose_name="Pojišťovna")
+    street = models.CharField(max_length=255, verbose_name="Ulice")
+    house_number = models.CharField(max_length=255, verbose_name="Číslo domu")
+    city = models.CharField(max_length=255, verbose_name="Město")
+    zip_code = models.CharField(max_length=255, verbose_name="PSČ")
+
     primary_profile = models.BooleanField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles')
-    avatar = StdImageField(upload_to='images', variations={'thumbnail': (100, 100)}, default='avatar.png')
-    quote = models.CharField(max_length=511, blank=True)
+    avatar = StdImageField(upload_to='images', variations={'thumbnail': (100, 100)}, default='avatar.png', blank=True)
+    quote = models.CharField(max_length=511, blank=True, verbose_name="Citát")
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'

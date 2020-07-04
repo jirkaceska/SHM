@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Změnit heslo{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="POST" class="form-group">
+	    {% csrf_token %}
+	    {{ form|crispy}}
+	<button type="submit" class="btn btn-primary">Upravit</button>
+    </form>
+{% endblock %}

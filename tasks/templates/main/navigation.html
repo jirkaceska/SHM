@@ -1,0 +1,77 @@
+{% load static %}
+{% block head_css_section %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/navigation.css' %}" />
+{% endblock %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/" style="display: flex">
+            <img src="{% get_media_prefix %}logo.thumbnail.png" width="38" height="38" class="d-inline-block align-top" alt="">
+            <h1 class="text-wrap name small pl-2" style="width: 6rem">
+                <span class="text-danger">SHM</span>
+                <span class="text-primary">Klub</span>
+                <span class="text-success">Prostějov</span>
+            </h1>
+        </a>
+        <div class="order-lg-12">
+            <ul class="navbar-nav nav navbar-right flex-row">
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% if user.has_profile %}
+                                    <img src="{{ user.get_profile.avatar.url }}" alt="" width="30" height="30" class="img-rounded">
+                                {% endif %}
+                                {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu position-absolute" aria-labelledby="navbarDropdown" id="user-dropdown">
+                            {% if user.has_profile %}
+                                <a class="dropdown-item" href="{% url 'accounts:profile_edit' %}">
+                                    Upravit profil
+                                </a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'accounts:profile_create' %}">
+                                    Vytvořit profil
+                                </a>
+                            {% endif %}
+                            <a class="dropdown-item" href="{% url 'accounts:change_password' %}">
+                                Změnit heslo
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{request.path}}">
+                                Odhlásit se
+                            </a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'accounts:login' %}?next={{request.path}}">
+                            <i class="fa fa-sign-in"></i>
+                            <span class="d-none d-sm-inline"> Přihlásit</span>
+                        </a>
+                    </li>
+                    <li class="ml-4">
+                        <a href="{% url 'accounts:register' %}">
+                            <i class="fa fa-user"></i>
+                            <span class="d-none d-sm-inline"> Zaregistrovat se</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse order-lg-1" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-5 mr-auto nav" id="menu">
+                <li class="nav-item">
+                    <a href="#">O nás</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'accounts:profiles_list' %}">Kontakty</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Fotogalerie</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

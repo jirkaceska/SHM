@@ -1,20 +1,25 @@
 {% extends "main/base.html" %}
-
-{% load crispy_forms_tags %}
+{% block title %}Kalendář{% endblock %}
+{% load static %}
+{% block head_css_section %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tasks/css/signabletask_list.css' %}" />
+{% endblock %}
+{#{% load bootstrap4 %}#}
+{#{% load crispy_forms_tags %}#}
 {% block content %}
     <h2>Tábory</h2>
     <form method="post" action="{% url 'tasks:index' %}">
         {% csrf_token %}
-        {% crispy form %}
+        {{ form }}
         <button type="submit" class="btn btn-primary">Filtrovat</button>
     </form>
 
-    <ul>
+    <ul class="p-0">
         {% for task in tasks %}
             <li class="camp card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-2 p-2">
-                        <img src="{{ task.image.url }}" alt="Obrázek tábora" width="100%">
+                        <img src="{{ task.image.url }}" alt="Obrázek tábora" width="100%" class="card-img-left img-fluid">
                     </div>
                     <div class="col-md-10">
                         <div class="card-body">
