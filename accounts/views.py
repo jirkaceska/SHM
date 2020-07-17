@@ -78,9 +78,9 @@ class ProfileEdit(UpdateView, ProfileView):
 
 class ProfileCreate(CreateView, ProfileView):
 
-    def __init__(self):
-        self.object = None
-        super(ProfileCreate, self).__init__()
+    # def __init__(self):
+    #     self.object = None
+    #     super(ProfileCreate, self).__init__()
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
