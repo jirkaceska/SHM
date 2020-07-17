@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+{% block title %}Přihlášky{% endblock %}
+{% load static %}
+{% block head_css_section %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/buttons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tasks/css/assigned_to.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h2>Přihlášky</h2>
+
+    <ul class="p-0 list-group">
+        {% for application in applications %}
+            <li class="list-group-item list-group-item-action d-flex pl-0">
+                <div class="flex-column flex-md-row col-9 col-md-9 d-flex">
+                    <h5 class="mb-0 col-md-6">{{ application.person }}</h5>
+                    <h5 class="mb-0 col-md-6">{{ application.task }}</h5>
+
+                </div>
+                <div class="col-3 col-md-3 flex-column flex-md-row d-flex justify-content-between align-items-center">
+                    <span class="pt-2 pb-2 badge badge-{{ application.get_color }} text-wrap">{{ application.get_state_display }}</span>
+
+                    <a href="{% url 'tasks:applicationDelete' application.id %}"
+                       class="delete btn-default btn{{ application.is_suspended|yesno:" disabled," }} on-top-card"
+                       title="Odstranit dítě"
+                    >
+                        Odhlásit
+                    </a>
+                </div>
+                <a href="{% url 'tasks:applicationEdit' application.id %}" class="stretched-link"></a>
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}

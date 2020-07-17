@@ -2,9 +2,10 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'tasks/css/assigned_to.css' %}">
 {% endblock %}
-<div>Hlavní vedoucí:
+<div>
+    <b>Hlavní vedoucí:</b>
     {% if task.assigned_to is not None %}
-    <a href="{% url 'accounts:profile' task.assigned_to_id %}" class="leader">
+    <a href="{% url 'accounts:profile' task.assigned_to_id %}" class="leader on-top-card">
         {{ task.assigned_to }}
     </a>
     {% endif %}

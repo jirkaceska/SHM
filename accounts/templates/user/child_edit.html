@@ -1,0 +1,5 @@
+{% extends 'user/profile.html' %}
+
+{% block title %}Upravit dítě{% endblock %}
+{% block back_button %}<a href="{% url 'accounts:children' %}" class="btn btn-secondary">Zrušit</a>{% endblock %}
+{% block button %}<button type="submit" class="btn btn-primary">Upravit</button>{% endblock %}

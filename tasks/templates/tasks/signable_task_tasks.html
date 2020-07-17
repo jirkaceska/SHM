@@ -1,0 +1,89 @@
+{% extends "tasks/signabletask_detail.html" %}
+{% block head_css_section %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/buttons.css' %}">
+{% endblock %}
+
+{% block card_content %}
+{#    <div class="table-responsive-xl planned_tasks">#}
+{#        <table class="table w-auto" style="min-width: 1110px;">#}
+{#            <thead>#}
+{#                <tr class="d-flex">#}
+{#                    {% for hour in timespan.range %}#}
+{#                        <td>{{ hour }}</td>#}
+{#                    {% endfor %}#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for planned_task in planned_tasks %}#}
+{#                    <tr class="d-flex">#}
+{#                        <td class="col-1 text-wrap text-break">{{ application.person }}</td>#}
+{#                        <td class="col-2 text-wrap text-break">{{ application.person.owner.email }}</td>#}
+{#                        <td class="col-1 text-wrap text-break">{{ application.person.birth_date }}</td>#}
+{#                        <td class="col-1 text-wrap text-break">{{ application.person.owner.get_profile.phone }}</td>#}
+{#                        <td class="col-1 text-wrap text-break">{{ application.person.phone }}</td>#}
+{#                        <td class="col-2 text-wrap text-break">{{ application.person.get_address }}</td>#}
+{#                        <td class="col-2 text-wrap text-break">{{ application.person.insurance_company }}</td>#}
+{#                        <td class="col-1 text-wrap">#}
+{#                            <span class="pt-2 pb-2 badge badge-{{ application.get_color }} text-wrap">{{ application.get_state_display }}</span>#}
+{#                        </td>#}
+{#                        <td class="col-1 text-wrap text-break justify-content-center d-flex">#}
+{#                            <a href="{% url 'tasks:applicationDelete' application.id %}"#}
+{#                               class="delete"#}
+{#                               title="Odhlásit dítě"#}
+{#                            >#}
+{#                                <i class="fa fa-times" aria-hidden="true"></i>#}
+{#                            </a>#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+    <div class="d-flex justify-content-end mb-2">
+        <a href="{% url 'tasks:taskCreate' task.id %}" class="btn btn-success">
+            Přidat úkol
+        </a>
+    </div>
+    <div>
+        <ul class="p-0 list-group table">
+            {% for unplanned_task in unplanned_tasks %}
+                <li class="list-group-item list-group-item-action d-flex flex-column flex-md-row">
+{#                    <div class="col-8 col-md-10 d-flex flex-column flex-md-row">#}
+                        <div class="col-12 col-md-4 mb-2 mb-md-0">
+                            <h5 class="mb-0">{{ unplanned_task.name }}</h5>
+                        </div>
+                        <div class="col-12 col-md-4 mb-2 mb-md-0">
+                            <img src="{{ unplanned_task.assigned_to.get_profile.avatar.url }}" alt="" width="30" height="30" class="img-rounded">
+                            {{ unplanned_task.assigned_to|default_if_none:"Nepřiřazeno" }}
+                        </div>
+                    <div class="d-flex flex-row col-12 cold-md-4">
+                        <div class="col-6 col-md-2">
+                            <span class="pt-2 pb-2 badge badge-{{ unplanned_task.get_color }} text-wrap">
+                                {{ unplanned_task.get_task_state_display }}
+                            </span>
+                        </div>
+                        <div class="col-3 col-md-1">
+                            <a href="{% url 'tasks:taskEdit' unplanned_task.id %}"
+                               class="edit"
+                               title="Upravit úkol"
+                            >
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="col-3 col-md-1">
+                            <a href=""
+                               class="delete"
+                               title="Odstranit úkol"
+                            >
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {#                    </div>#}
+                </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

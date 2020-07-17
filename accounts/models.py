@@ -33,7 +33,7 @@ class Profile(models.Model):
         return f'{self.first_name} {self.last_name}'
 
     def get_address(self):
-        return f'{self.street} {self.house_number}, {self.zip_code} {self.city}'
+        return f'{self.street} {self.house_number}, {self.city} {self.zip_code}'
 
     def __str__(self):
-        return f'<Profile: {self.get_full_name()}'
+        return f'{self.first_name} {self.last_name}'

@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% block title %}Odstranit dítě {{ child.get_full_name }}{% endblock %}
+
+{% block content %}
+    <div class="mt-3">
+        <h2>Chcete opravdu odstranit dítě {{ child.get_full_name }}?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Smazat</button>
+            <a href="{% url 'accounts:children' %}" class="btn btn-secondary">Zrušit</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+.edit {
+    color: #495057;
+}
+
+.edit:hover {
+    color: #17a2b8;
+    cursor: pointer;
+}
+
+.delete {
+    color: #495057;
+}
+
+.delete:hover {
+    color: #dc3545;
+    cursor: pointer;
+}

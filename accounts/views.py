@@ -5,8 +5,9 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import DetailView, ListView, UpdateView, CreateView
+from django.views.generic import DetailView, ListView, UpdateView, CreateView, DeleteView
 from django.views.generic.edit import ModelFormMixin, ProcessFormView
 
 from accounts.forms import RegisterForm, ProfileForm, ChildForm
@@ -77,23 +78,62 @@ class ProfileEdit(UpdateView, ProfileView):
 
 class ProfileCreate(CreateView, ProfileView):
 
+    def __init__(self):
+        self.object = None
+        super(ProfileCreate, self).__init__()
+
     def form_valid(self, form):
+        self.object = form.save(commit=False)
         self.object.owner = self.request.user
         self.object.primary_profile = True
 
-        super(ProfileCreate, self).form_valid(form)
+        return super(ProfileCreate, self).form_valid(form)
 
 
-def choose_profile_view(request):
-    if request.user.has_profile():
-        return ProfileEdit()
-    return ProfileCreate()
+# def choose_profile_view(request):
+#     if request.user.has_profile():
+#         return ProfileEdit()
+#     return ProfileCreate()
 
 
 class ChildrenCreate(LoginRequiredMixin, CreateView):
     model = Profile
     form_class = ChildForm
+    success_url = reverse_lazy('accounts:children')
+
+    # def __init__(self):
+    #     self.object = None
+    #     super(ChildrenCreate, self).__init__()
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.owner = self.request.user
+        self.object.primary_profile = False
+
+        return super(ChildrenCreate, self).form_valid(form)
 
     def get_initial(self):
         self.initial.update({'profile': self.request.user.get_profile()})
         return super(ChildrenCreate, self).get_initial()
+
+
+class ChildrenList(LoginRequiredMixin, ListView):
+    model = Profile
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        user = self.request.user
+        return {
+            'children': user.get_children()
+        }
+
+
+class ChildDelete(LoginRequiredMixin, DeleteView):
+    model = Profile
+    success_url = reverse_lazy('accounts:children')
+    context_object_name = 'child'
+
+
+class ChildEdit(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = ChildForm
+    success_url = reverse_lazy('accounts:children')

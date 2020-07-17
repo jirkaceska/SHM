@@ -6,7 +6,7 @@
     <form method="POST" class="form-group">
 	    {% csrf_token %}
 	    {{ form|crispy}}
-        {% block back_button %}{% endblock %}
+        <a href="#" onclick="history.back();" class="btn btn-secondary">Zrušit</a>
         {% block button %}{% endblock %}
     </form>
 {% endblock %}

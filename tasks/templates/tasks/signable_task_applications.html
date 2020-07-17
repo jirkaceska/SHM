@@ -1,0 +1,49 @@
+{% extends "tasks/signabletask_detail.html" %}
+{% block head_css_section %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/buttons.css' %}">
+{% endblock %}
+
+{% block card_content %}
+    <div class="table-responsive-xl">
+        <table class="table table-striped w-auto" style="min-width: 1110px;">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-1">Jméno</th>
+                    <th scope="col" class="col-2">E-mail</th>
+                    <th scope="col" class="col-1">Datum narození</th>
+                    <th scope="col" class="col-1">Telefon rodičů</th>
+                    <th scope="col" class="col-1">Telefon účastníka</th>
+                    <th scope="col" class="col-2">Adresa</th>
+                    <th scope="col" class="col-2">Pojšťovna</th>
+                    <th scope="col" class="col-1">Stav</th>
+                    <th scope="col" class="col-1">Odhlásit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                    <tr class="d-flex">
+                        <td class="col-1 text-wrap text-break">{{ application.person }}</td>
+                        <td class="col-2 text-wrap text-break">{{ application.person.owner.email }}</td>
+                        <td class="col-1 text-wrap text-break">{{ application.person.birth_date }}</td>
+                        <td class="col-1 text-wrap text-break">{{ application.person.owner.get_profile.phone }}</td>
+                        <td class="col-1 text-wrap text-break">{{ application.person.phone }}</td>
+                        <td class="col-2 text-wrap text-break">{{ application.person.get_address }}</td>
+                        <td class="col-2 text-wrap text-break">{{ application.person.insurance_company }}</td>
+                        <td class="col-1 text-wrap">
+                            <span class="pt-2 pb-2 badge badge-{{ application.get_color }} text-wrap">{{ application.get_state_display }}</span>
+                        </td>
+                        <td class="col-1 text-wrap text-break justify-content-center d-flex">
+                            <a href="{% url 'tasks:applicationDelete' application.id %}"
+                               class="delete"
+                               title="Odhlásit dítě"
+                            >
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

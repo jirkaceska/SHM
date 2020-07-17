@@ -25,7 +25,9 @@ class ChildForm(forms.ModelForm):
         exclude = ['primary_profile', 'owner', 'avatar', 'quote']
 
     def __init__(self, *args, **kwargs):
-        self.profile = kwargs['initial']['profile']
+        self.profile = None
+        if 'initial' in kwargs and 'profile' in kwargs['initial']:
+            self.profile = kwargs['initial']['profile']
         super(ChildForm, self).__init__(*args, **kwargs)
 
         if self.profile is not None:

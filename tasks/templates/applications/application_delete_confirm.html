@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% block title %}Odhlásit dítě{% endblock %}
+
+{% block content %}
+    <div class="mt-3">
+        <h2>Chcete opravdu odhlásit dítě?</h2>
+        <p>Chcete zažádat o odhlášení dítěte {{ application.person.get_full_name }} z tábora {{ application.task.name }}?</p>
+        <p>V případě vyhovění požadavku Vám bude vrácen účastnický poplatek</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Odhlásit</button>
+            <a onclick="history.back();" href="#" class="btn btn-secondary">Zrušit</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'user/profile.html' %}
 
 {% block title %}Vytvořit profil{% endblock %}
+{% block back_button %}<a href="{% url 'tasks:index' %}" class="btn btn-secondary">Zrušit</a>{% endblock %}
 {% block button %}<button type="submit" class="btn btn-success">Vytvořit</button>{% endblock %}

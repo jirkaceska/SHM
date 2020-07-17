@@ -1,0 +1,29 @@
+{% extends 'tasks/signabletask_detail.html' %}
+{% load crispy_forms_tags %}
+{% block card_content %}
+    <div class="d-flex flex-column">
+        <div class="camp-info">
+            {% include 'tasks/assigned_to.html' %}
+            <div>
+                <b>Věk:</b> {{ task.get_age_span }}
+            </div>
+            <div>
+                <b>Informace:</b> {{ task.description }}
+            </div>
+
+        </div>
+        <div class="sign-in mt-5">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn-success btn d-flex flex-column align-items-center">
+                    <span>Přihlásit dítě na tábor</span>
+                    <span class="small text-light">Zbývá {{ task.get_vacancies }} míst</span>
+                </button>
+            </form>
+            <div>
+                Nevidíte své dítě v seznamu? <a href="{% url 'accounts:childCreate' %}">Přidejte je</a> zde.
+            </div>
+        </div>
+    </div>
+{% endblock %}

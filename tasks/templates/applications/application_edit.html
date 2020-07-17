@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+{% block title %}Upravit přihlášku{% endblock %}
+
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% block content %}
+    <div class="mt-3">
+        <h2>Upravit přihlášku</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            {{ form.child_form|crispy }}
+            <button type="submit" class="btn btn-success">Upravit</button>
+            <a href="{% url 'tasks:applications' %}" class="btn btn-secondary">Zrušit</a>
+        </form>
+    </div>
+{% endblock %}

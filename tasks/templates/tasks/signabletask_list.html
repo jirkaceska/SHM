@@ -5,12 +5,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'tasks/css/signabletask_list.css' %}" />
 {% endblock %}
 {#{% load bootstrap4 %}#}
-{#{% load crispy_forms_tags %}#}
+{% load crispy_forms_tags %}
 {% block content %}
     <h2>Tábory</h2>
     <form method="post" action="{% url 'tasks:index' %}">
         {% csrf_token %}
-        {{ form }}
+        {{ form|crispy }}
         <button type="submit" class="btn btn-primary">Filtrovat</button>
     </form>
 
@@ -24,14 +24,14 @@
                     <div class="col-md-10">
                         <div class="card-body">
                             <div class="card-title">{{ task.name }}</div>
-                            <div>Věk: {{ task.age_min }}-{{ task.age_max }}</div>
-                            <div>Termín: {{ task.get_date_span|default_if_none:"" }}</div>
+                            <div><span class="font-weight-bold">Věk: </span>{{ task.age_min }}-{{ task.age_max }}</div>
+                            <div><span class="font-weight-bold">Termín: </span>{{ task.get_date_span|default_if_none:"" }}</div>
                             {% include 'tasks/assigned_to.html' %}
-                            <div>Počet míst: {{ task.capacity }}</div>
+                            <div><span class="font-weight-bold">Počet míst: </span>{{ task.get_vacancies }}</div>
                         </div>
                     </div>
                 </div>
-                <a href="{% url 'tasks:detail' task.id %}" class="stretched-link"></a>
+                <a href="{% url 'tasks:taskInfo' task.id %}" class="stretched-link"></a>
             </li>
 
         {% endfor %}
