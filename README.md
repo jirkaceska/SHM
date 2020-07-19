@@ -33,3 +33,10 @@ Server spustíte použitím příkazu:
 python manage.py runserver
 ```
 Běžící aplikaci pak naleznete na adrese [http://localhost:8000/](http://localhost:8000/)
+
+## Testovací verze
+Testovací verze běží na doméně [http://shm-4180.rostiapp.cz/](http://shm-4180.rostiapp.cz/). V této verzi nelze přidávat akce, ale lze měnit jejich podúkoly, vytvářet uživatele a jejich profily a hlásit se na již vytvořené akce. Pro tyto úkony musí být uživatel přihlášen na existujícím účtu.
+
+Demo účet:
+> Jméno: xceska
+> Heslo: heslo321
