@@ -20,3 +20,16 @@ pip3 install django-crispy-forms
 pip3 install django-stdimage
 pip3 install python-dateutil
 ```
+
+## Migrace
+Pro vytvoření potřebných databázových tabulek je potřeba příkaz:
+```
+python manage.py migrate
+```
+
+## Spuštění serveru
+Server spustíte použitím příkazu:
+```
+python manage.py runserver
+```
+Běžící aplikaci pak naleznete na adrese [http://localhost:8000/](http://localhost:8000/)
