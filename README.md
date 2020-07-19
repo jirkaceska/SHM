@@ -39,4 +39,5 @@ Testovací verze běží na doméně [http://shm-4180.rostiapp.cz/](http://shm-4
 
 Demo účet:
 > Jméno: xceska
+
 > Heslo: heslo321
